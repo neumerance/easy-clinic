@@ -1,5 +1,7 @@
 class PatientSerializer
   include FastJsonapi::ObjectSerializer
 
-  has_one :profile, lazy_load_data: true
+  attribute :profile do |object|
+    ProfileSerializer.new(object.profile).serializable_hash.dig(:data, :attributes)
+  end
 end

@@ -12,9 +12,8 @@ describe PatientCaseSerializer do
 
   subject do
     described_class.new(
-      patient_case,
-      {
-        params: { current_user: patient_case.patient }
+      patient_case, params: {
+        current_user: patient_case.doctor
       }
     ).serializable_hash[:data][:attributes]
   end

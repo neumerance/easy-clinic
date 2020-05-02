@@ -3,8 +3,15 @@ class PatientCaseSerializer
 
   attributes :case_id, :title
 
-  belongs_to :patient, lazy_load_data: true,
-              if: Proc.new { |record, params| params && params[:current_user].doctor? }
-  belongs_to :doctor, lazy_load_data: true,
-              if: Proc.new { |record, params| params && params[:current_user].patient? }
+  attribute :patient, if: Proc.new { |record, params|
+    params && params[:current_user].doctor? && params[:include_assoc]
+  } do |object|
+    DoctorSerializer.new(object.patient).serializable_hash.dig(:data, :attributes)
+  end
+
+  attribute :doctor, if: Proc.new { |record, params|
+    params && params[:current_user].patient? && params[:include_assoc]
+  } do |object|
+    DoctorSerializer.new(object.doctor).serializable_hash.dig(:data, :attributes)
+  end
 end
