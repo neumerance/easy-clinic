@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_094349) do
+ActiveRecord::Schema.define(version: 2020_05_08_091428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_094349) do
     t.bigint "patient_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0
     t.index ["doctor_id"], name: "index_patient_cases_on_doctor_id"
     t.index ["patient_id"], name: "index_patient_cases_on_patient_id"
   end

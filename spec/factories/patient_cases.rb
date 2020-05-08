@@ -3,6 +3,7 @@ FactoryBot.define do
     association :doctor
     association :patient
     title { FFaker::Lorem.sentence }
+    status { 'taken' }
 
     trait :with_conversation do
       after :create do |object|
