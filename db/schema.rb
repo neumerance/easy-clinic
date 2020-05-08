@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_094349) do
 
   create_table "conversations", force: :cascade do |t|
     t.string "message_type"
-    t.string "message_id"
+    t.integer "message_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2020_05_01_094349) do
 
   create_table "file_uploads", force: :cascade do |t|
     t.string "attachment_type"
-    t.string "attachment_id"
+    t.integer "attachment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
