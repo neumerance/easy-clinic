@@ -1,7 +1,7 @@
 class PatientCaseSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :case_id, :title
+  attributes :case_id, :title, :status
 
   attribute :patient, if: Proc.new { |record, params|
     params && params[:current_user].doctor? && params[:include_assoc]

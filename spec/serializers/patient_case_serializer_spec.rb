@@ -7,7 +7,8 @@ describe PatientCaseSerializer do
   let(:expectation) do
     {
       case_id: patient_case.case_id,
-      title: patient_case.title
+      title: patient_case.title,
+      status: patient_case.status
     }
   end
 

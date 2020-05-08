@@ -2,7 +2,13 @@ class Api::PatientCasesController < ApplicationController
   before_action :get_patient_case, only: [:update, :edit]
 
   def index
-    @resources = user_role.patient_cases
+    @resources = if params[:status] == 'taken'
+                    user_role.patient_cases.taken
+                  elsif params[:status] == 'resolved'
+                    user_role.patient_cases.resolved
+                  else
+                    PatientCase.open
+                  end
     render json: serialized_resources
   end
 

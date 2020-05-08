@@ -12,4 +12,8 @@ class PatientCase < ApplicationRecord
   validates :status, inclusion: { in: STATUSES.map(&:to_s)  }
 
   before_validation ->() { self.case_id = Time.now.to_i }
+
+  scope :open, ->() { where(status: :open) }
+  scope :taken, ->() { where(status: :taken) }
+  scope :resolved, ->() { where(status: :resolved) }
 end
