@@ -6,6 +6,6 @@ class ConversationSerializer
   attribute :attachments, if: Proc.new { |record, params|
     params && params[:include_assoc]
   } do |object|
-    FileUploadSerializer.new(record.file_uploads).serializable_hash.dig(:data, :attributes)
+    FileUploadSerializer.new(object.file_uploads).serializable_hash.dig(:data)
   end
 end

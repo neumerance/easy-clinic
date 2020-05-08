@@ -1,6 +1,6 @@
 class Api::PatientCasesController < ApplicationController
   before_action :set_current_user_role
-  before_action :get_patient_case, only: [:show, :update, :edit]
+  before_action :get_patient_case, only: [:update, :edit]
 
   def index
     @resources = @user.patient_cases
@@ -8,7 +8,10 @@ class Api::PatientCasesController < ApplicationController
   end
 
   def show
-    @resources = [@patient_case]
+    @resources = PatientCase.includes(
+      :doctor, :patient,
+      conversations: :file_uploads
+    ).where('patient_cases.id = ?', params[:id])
     render json: serialized_resources
   end
 
