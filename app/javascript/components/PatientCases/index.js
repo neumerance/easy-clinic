@@ -1,5 +1,9 @@
-import PatientCaseTable from './PatientCaseTable'
+import Cards from './Cards'
+import Card from './Card';
+import Filters from './Filters';
 
 export default {
-  PatientCaseTable
+  Cards,
+  Card,
+  Filters
 }

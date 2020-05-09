@@ -1,6 +1,6 @@
 import React from "react"
 import { Navbar, Nav } from 'react-bootstrap';
-import Dashboard from './Dashboard';
+import DashboardDesktop from './DashboardDesktop';
 import { Provider } from 'react-redux';
 import store from '../store';
 
@@ -17,7 +17,7 @@ class App extends React.Component {
             <Nav.Link href="#pricing">Log Out</Nav.Link>
           </Nav>
         </Navbar>
-        <Dashboard />
+        <DashboardDesktop />
       </Provider>
     );
   }
