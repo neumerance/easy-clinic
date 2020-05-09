@@ -4,9 +4,10 @@ import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchPatientCases } from '../store/actions/patientCaseActions';
 import PatientCase from './PatientCases';
+import PatientConversation from './PatientConversation';
+import FrabricBG from './assets/fabric.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardDesktop.css'
-import FrabricBG from './assets/fabric.png';
 
 const fabricBGStyles = {
   background: `url("${FrabricBG}") repeat`
@@ -24,12 +25,11 @@ class Dashboard extends React.Component {
           <Row className="d-flex align-items-stretch">
             <Col className="positionRelative" style={fabricBGStyles} xs={12} lg={4}>
               <PatientCase.Filters className="mt-3 mb-3" />
-              <div className="fullHeight scrollable pb-30p">
-                <PatientCase.Cards />
-              </div>
+              <PatientCase.Cards className="fullHeight scrollable pb-30p" />
             </Col>
-            <Col className="border-right border-left" xs={12} lg={5}>
-              Center
+            <Col className="border-right border-left pl-0 pr-0" xs={12} lg={5}>
+              <PatientConversation.Header />
+              <PatientConversation.Conversations className="fullHeight scrollable pb-30p" />
             </Col>
             <Col style={fabricBGStyles} xs={12} lg={3}>
               Right

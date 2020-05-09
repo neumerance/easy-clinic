@@ -4,13 +4,9 @@ import Card from './Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Cards extends React.Component {
-  componentWillMount() {
-    // this.props.fetchPatientCases();
-  }
-
   render () {
     return (
-      <React.Fragment>
+      <div className={this.props.className}>
         <Card />
         <Card />
         <Card />
@@ -23,9 +19,13 @@ class Cards extends React.Component {
         <Card />
         <Card />
         <Card />
-      </React.Fragment>
+      </div>
     );
   }
+}
+
+Cards.propTypes = {
+  className: PropTypes.string || PropTypes.undefined
 }
 
 export default Cards;
