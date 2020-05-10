@@ -10,7 +10,7 @@ body {
 }
 .commentField {
   position: absolute;
-  bottom: 125px;
+  bottom: 140px;
   z-index: 1040;
   width: 100%
 }

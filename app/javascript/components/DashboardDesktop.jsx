@@ -29,6 +29,7 @@ class Dashboard extends React.Component {
             </Col>
             <Col className="border-right border-left pl-0 pr-0" xs={12} lg={5}>
               <PatientConversation.Header />
+              <PatientCase.Description text={'Kamote'} />
               <PatientConversation.Conversations className="fullHeight scrollable pb-30p" />
               <PatientConversation.CommentField className="commentField" />
             </Col>
