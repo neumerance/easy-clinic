@@ -54,7 +54,8 @@ class Conversation extends React.Component {
   messageStyles() {
     let styles = {
       ...rounded[this.props.direction][this.props.alignment],
-      ...bubbleStyles[this.props.direction]
+      ...bubbleStyles[this.props.direction],
+      maxWidth: '60%'
     };
     return styles;
   }
@@ -62,7 +63,10 @@ class Conversation extends React.Component {
   message() {
     return (
       <div style={this.messageStyles()} className="pr-3 pl-3 pt-2 pb-2">
-        {this.props.text}
+        <p className={`text-${this.props.direction}`}>{this.props.text}</p>
+        <div className="d-flex flex-wrap justify-content-end">
+          {this.props.children}
+        </div>
       </div>
     )
   }

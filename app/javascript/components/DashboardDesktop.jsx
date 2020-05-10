@@ -22,7 +22,7 @@ class Dashboard extends React.Component {
     return (
       <React.Fragment>
         <Container fluid>
-          <Row className="d-flex align-items-stretch">
+          <Row className="fullHeight">
             <Col className="positionRelative" style={fabricBGStyles} xs={12} lg={4}>
               <PatientCase.Filters className="mt-3 mb-3" />
               <PatientCase.Cards className="fullHeight scrollable pb-30p" />
@@ -30,6 +30,7 @@ class Dashboard extends React.Component {
             <Col className="border-right border-left pl-0 pr-0" xs={12} lg={5}>
               <PatientConversation.Header />
               <PatientConversation.Conversations className="fullHeight scrollable pb-30p" />
+              <PatientConversation.CommentField className="commentField" />
             </Col>
             <Col style={fabricBGStyles} xs={12} lg={3}>
               Right
