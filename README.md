@@ -1,27 +1,32 @@
-# README
+# Online Clinic.io
+Medical doctors online consulation platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+- Medical doctor verification
+- Secured file attachments (planned)
+- Easy messaging app (started)
+- Realtime video conversation (planned)
+- Easy upload system (started)
+- Donation System (planned)
+- Patient Case System (implemented)
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+#### Dependencies
+- RVM
+- NVM (optional) running in node 11
 
-* System dependencies
-- ImageMagick
-- MiniMagick
-- vips
+For local developments, do the following
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+git clone git@github.com:neumerance/easy-clinic.git easy_clinic
+cd easy_clinic
+bundle install
+rake db:setup
+npm install
+bundle exec rspec
+```
+Once all are green you can run the server
+```sh
+bundle exec rails s
+```
