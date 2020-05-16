@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'dashboard#index'
 
   namespace :api do
-    resources :patient_cases
+    resources :patient_cases do
+      resources :patient_case_conversations
+    end
   end
 end
