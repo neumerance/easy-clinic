@@ -85,6 +85,30 @@ describe Api::PatientCasesController do
         expect(subject.dig('data', 'attributes', 'id')).to eq expectation
       end
     end
+
+    describe '#update' do
+      let(:patient) { create(:patient) }
+      let(:patient_case) { create(:patient_case, doctor: current_user, patient: patient) }
+      let(:include_assoc) { true }
+      let(:status) { 'taken' }
+      let(:params) do
+        {
+          id: patient_case.id,
+          patient_case: {
+            status: status
+          }
+        }
+      end
+
+      before do
+        put :update, params: params
+      end
+
+      it 'succeed' do
+        expect(response).to have_http_status(:success)
+        expect(subject.dig('attributes', 'status')).to eq status
+      end
+    end
   end
 end
 

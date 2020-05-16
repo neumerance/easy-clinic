@@ -25,7 +25,7 @@ class Api::PatientCasesController < ApplicationController
   # they update case to refer patient to another doctor
   # or assign the case to itself
   def update
-    @resources = [@patient_case]
+    @resources = @patient_case
     render json: serialized_resources
   end
 
@@ -51,7 +51,7 @@ class Api::PatientCasesController < ApplicationController
   end
 
   def get_patient_case
-    @patient_case = @user.patient_cases.find(params[:id])
+    @patient_case = user_role.patient_cases.find(params[:id])
   end
 
   def patient_case_params
