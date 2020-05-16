@@ -5,5 +5,11 @@ FactoryBot.define do
     password { 'ABC12abc' }
     password_confirmation { 'ABC12abc' }
     role { 1 }
+
+    trait :with_patient_cases do
+      after :create do |doctor|
+        create(:patient_case, :with_conversation, doctor: doctor)
+      end
+    end
   end
 end

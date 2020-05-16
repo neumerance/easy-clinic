@@ -32,8 +32,8 @@ class Api::PatientCasesController < ApplicationController
   # As patient - pass or blank doctor_id
   # As doctor  - pass patient_id
   def create
-    @patient_case = user_role.patient_cases.create(patient_case_params)
-    @resources = [@patient_case]
+    @patient_case = user_role.patient_cases.create!(patient_case_params)
+    @resources = @patient_case
     render json: serialized_resources
   end
 
@@ -44,7 +44,7 @@ class Api::PatientCasesController < ApplicationController
       @resources, {
         params: {
           current_user: current_user,
-          include_assoc: params[:action] == 'show'
+          include_assoc: %w(show create update).include?(params[:action])
         }
       }
     ).serializable_hash

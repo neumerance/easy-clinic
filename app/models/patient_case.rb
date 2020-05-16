@@ -16,4 +16,8 @@ class PatientCase < ApplicationRecord
   scope :open, ->() { where(status: :open) }
   scope :taken, ->() { where(status: :taken) }
   scope :resolved, ->() { where(status: :resolved) }
+
+  before_create ->() {
+    self.status = :taken if self.doctor
+  }
 end
