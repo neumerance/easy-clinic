@@ -1,8 +1,14 @@
 class Api::PatientCaseConversationsController < ApplicationController
   before_action :get_patient_case
-  before_action :get_conversations, only: :index
+  before_action :get_conversations
   
   def index
+    render json: serialized_resources
+  end
+
+  def create
+    @conversations = @patient_case.conversations.create(allowed_params)
+    attach_file_uploads
     render json: serialized_resources
   end
 
@@ -22,5 +28,15 @@ class Api::PatientCaseConversationsController < ApplicationController
         include_assoc: true
       }
     })
+  end
+
+  def allowed_params
+    params.require(:conversation).permit(:content, :file_uploads)
+  end
+
+  def attach_file_uploads
+    params[:conversation][:file_uploads].each do |file|
+      FileUpload.create!(attachment: @conversations, file: file)
+    end
   end
 end

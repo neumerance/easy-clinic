@@ -25,8 +25,36 @@ describe Api::PatientCaseConversationsController do
     before do
       get :index, params: params
     end
-    
+
     it { is_expected.to eq serialized_conversations[0..14] }
+  end
+
+  describe '#create' do
+    let(:patient_case) { create(:patient_case, doctor: current_user) }
+    let(:patient) { patient_case.patient }
+
+    let(:params) do
+      {
+        patient_case_id: patient_case.id,
+        conversation: {
+          content: FFaker::Lorem.sentence,
+          file_uploads: [
+            fixture_file_upload(Rails.root.join('spec/fixtures/images/400x600.jpg'), 'image/jpg'),
+            fixture_file_upload(Rails.root.join('spec/fixtures/images/400x600.jpg'), 'image/jpg')
+          ]
+        }
+      }
+    end
+    let(:conversations) { Conversation.last }
+
+    before do
+      post :create, params: params
+    end
+
+    it 'creates message with attachments' do
+      expect(subject.dig('attributes', 'content')).to eq params.dig(:conversation, :content)
+      expect(subject.dig('attributes', 'attachments').size).to eq params.dig(:conversation, :file_uploads).size
+    end
   end
 end
 
