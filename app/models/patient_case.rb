@@ -5,7 +5,7 @@ class PatientCase < ApplicationRecord
 
   belongs_to :doctor, optional: true
   belongs_to :patient
-  has_many :conversations, as: :message
+  has_many :conversations, as: :message_for
   has_many :file_uploads, through: :conversations
 
   validates :title, presence: true

@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 2020_05_08_091428) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.string "message_type"
-    t.integer "message_id"
+    t.string "message_for_type"
+    t.integer "message_for_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["message_id"], name: "index_conversations_on_message_id"
-    t.index ["message_type"], name: "index_conversations_on_message_type"
+    t.index ["message_for_id"], name: "index_conversations_on_message_for_id"
+    t.index ["message_for_type"], name: "index_conversations_on_message_for_type"
   end
 
   create_table "file_uploads", force: :cascade do |t|
