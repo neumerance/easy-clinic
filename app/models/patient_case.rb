@@ -8,7 +8,7 @@ class PatientCase < ApplicationRecord
   has_many :conversations, as: :message_for
   has_many :file_uploads, through: :conversations
 
-  validates :title, presence: true
+  validates :title, :description, presence: true
   validates :status, inclusion: { in: STATUSES.map(&:to_s)  }
 
   before_validation ->() { self.case_id = Time.now.to_i }

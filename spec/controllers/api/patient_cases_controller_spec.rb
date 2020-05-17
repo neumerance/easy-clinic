@@ -71,6 +71,7 @@ describe Api::PatientCasesController do
         {
           patient_case: {
             title: FFaker::Lorem.sentence,
+            description: FFaker::Lorem.paragraph,
             patient_id: patient.id
           }
         }

@@ -6,6 +6,7 @@ FactoryBot.define do
     association :doctor
     association :patient
     title { FFaker::Lorem.sentence }
+    description { FFaker::Lorem.paragraph }
     status { 'taken' }
 
     trait :with_conversation do

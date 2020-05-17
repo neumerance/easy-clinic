@@ -8,6 +8,7 @@ describe PatientCaseSerializer do
     {
       case_id: patient_case.case_id,
       title: patient_case.title,
+      description: patient_case.description,
       status: patient_case.status
     }
   end

@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_091428) do
 
   create_table "patient_cases", force: :cascade do |t|
     t.string "title"
+    t.text "description"
     t.string "case_id"
     t.bigint "doctor_id"
     t.bigint "patient_id"
