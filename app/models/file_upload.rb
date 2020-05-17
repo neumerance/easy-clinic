@@ -16,7 +16,7 @@ class FileUpload < ApplicationRecord
     'text/plain'
   ]
 
-  belongs_to :attachment, polymorphic: true
+  belongs_to :attachment_for, polymorphic: true
   has_one_attached :file
   validates :file, attached: true, content_type: ALLOWED_MIME_TYPES, size: {
     less_than: 120.megabytes ,

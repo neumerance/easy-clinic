@@ -4,7 +4,7 @@ FactoryBot.define do
 
     trait :with_attachments do
       after :create do |object|
-        create(:file_upload, attachment: object)
+        create(:file_upload, attachment_for: object)
       end
     end
   end

@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_091428) do
   end
 
   create_table "file_uploads", force: :cascade do |t|
-    t.string "attachment_type"
-    t.integer "attachment_id"
+    t.string "attachment_for_type"
+    t.integer "attachment_for_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

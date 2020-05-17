@@ -36,7 +36,7 @@ class Api::PatientCaseConversationsController < ApplicationController
 
   def attach_file_uploads
     params[:conversation][:file_uploads].each do |file|
-      FileUpload.create!(attachment: @conversations, file: file)
+      FileUpload.create!(attachment_for: @conversations, file: file)
     end
   end
 end
