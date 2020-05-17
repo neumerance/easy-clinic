@@ -16,7 +16,7 @@ class Api::PatientCasesController < ApplicationController
     @resources = PatientCase.includes(
       :doctor, :patient,
       conversations: :file_uploads
-    ).where('patient_cases.id = ?', params[:id])
+    ).find_by_id(params[:id])
     render json: serialized_resources
   end
 

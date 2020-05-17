@@ -1,8 +1,10 @@
 class PatientCaseConversationsChannel < ApplicationCable::Channel
+  STREAM_AFFIX = 'patient_case_conversations'.freeze
+
   def subscribed
     reject unless patient_case
 
-    stream_from "patient_case_conversations_#{@patient_case.id}" if @patient_case
+    stream_from "#{STREAM_AFFIX}_#{@patient_case.id}" if @patient_case
   end
 
   private

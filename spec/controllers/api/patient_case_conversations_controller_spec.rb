@@ -47,13 +47,16 @@ describe Api::PatientCaseConversationsController do
     end
     let(:conversations) { Conversation.last }
 
-    before do
+    it 'creates conversation with attachments' do
       post :create, params: params
-    end
-
-    it 'creates message with attachments' do
       expect(subject.dig('attributes', 'content')).to eq params.dig(:conversation, :content)
       expect(subject.dig('attributes', 'attachments').size).to eq params.dig(:conversation, :file_uploads).size
+    end
+
+    it 'broadcast conversation on create' do
+      expect { post :create, params: params }.to have_broadcasted_to(
+        "#{PatientCaseConversationsChannel::STREAM_AFFIX}_#{patient_case.id}"
+      )
     end
   end
 end

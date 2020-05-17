@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :conversation do
+    association :user
     content { FFaker::Lorem.paragraph }
 
     trait :with_attachments do

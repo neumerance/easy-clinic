@@ -8,4 +8,5 @@ class User < ApplicationRecord
 
   belongs_to :doctor, foreign_key: 'id', optional: true
   belongs_to :patient, foreign_key: 'id', optional: true
+  has_one    :profile, foreign_key: 'user_id'
 end

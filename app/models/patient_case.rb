@@ -5,8 +5,8 @@ class PatientCase < ApplicationRecord
 
   belongs_to :doctor, optional: true
   belongs_to :patient
-  has_many :conversations, as: :message_for
-  has_many :file_uploads, through: :conversations
+  has_many :conversations, as: :message_for, dependent: :destroy
+  has_many :file_uploads, through: :conversations, dependent: :destroy
 
   validates :title, :description, presence: true
   validates :status, inclusion: { in: STATUSES.map(&:to_s)  }

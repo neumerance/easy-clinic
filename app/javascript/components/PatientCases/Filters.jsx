@@ -3,6 +3,13 @@ import PropTypes from "prop-types"
 import { InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 
 class Filters extends React.Component {
+  onStatusChange(status) {
+    this.props.onFilterChange({
+      ...this.props.filters,
+      status
+    });
+  }
+
   render() {
     return (
       <InputGroup className={this.props.className}>
@@ -15,12 +22,12 @@ class Filters extends React.Component {
         <DropdownButton
           as={InputGroup.Append}
           variant="outline-secondary"
-          title="Open Cases"
+          title={`${this.props.filters.status} cases`}
           id="input-group-dropdown-2"
         >
-          <Dropdown.Item href="#">My Cases</Dropdown.Item>
-          <Dropdown.Item href="#">Open Cases</Dropdown.Item>
-          <Dropdown.Item href="#">Resolved Cases</Dropdown.Item>
+          <Dropdown.Item href="#" onClick={() => { this.onStatusChange('taken') }}>My Cases</Dropdown.Item>
+          <Dropdown.Item href="#" onClick={() => { this.onStatusChange('open') }}>Open Cases</Dropdown.Item>
+          <Dropdown.Item href="#" onClick={() => { this.onStatusChange('resolved') }}>Resolved Cases</Dropdown.Item>
         </DropdownButton>
       </InputGroup>
     )
@@ -28,7 +35,9 @@ class Filters extends React.Component {
 }
 
 Filters.propTypes = {
-  className: PropTypes.string || PropTypes.undefined
+  className: PropTypes.string,
+  filters: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired
 }
 
 export default Filters;

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_role
+    return nil unless current_user
     current_user.doctor? ?
     current_user.doctor :
     current_user.patient

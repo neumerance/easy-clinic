@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { fetchPatientCases } from '../store/actions/patientCaseActions';
+import { fetchPatientCase, fetchPatientCases, setPatientCaseFilters } from '../store/actions/patientCaseActions';
 import PatientCase from './PatientCases';
 import PatientConversation from './PatientConversation';
 import FrabricBG from './assets/fabric.png';
@@ -15,7 +15,13 @@ const fabricBGStyles = {
 
 class Dashboard extends React.Component {
   componentWillMount() {
-    this.props.fetchPatientCases({});
+    this.props.fetchPatientCases(this.props.filters);
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.patientCases.length && !this.props.patientCase) {
+      this.props.fetchPatientCase(props.patientCases[0].id);
+    }
   }
 
   render () {
@@ -24,12 +30,15 @@ class Dashboard extends React.Component {
         <Container fluid>
           <Row className="fullHeight">
             <Col className="positionRelative" style={fabricBGStyles} xs={12} lg={4}>
-              <PatientCase.Filters className="mt-3 mb-3" />
-              <PatientCase.Cards className="fullHeight scrollable pb-30p" />
+              <PatientCase.Filters filters={this.props.filters} onFilterChange={this.props.setPatientCaseFilters} className="mt-3 mb-3" />
+              <PatientCase.Cards 
+                className="fullHeight scrollable pb-30p" 
+                patientCases={this.props.patientCases}
+                fetchPatientCase={this.props.fetchPatientCase}
+              />
             </Col>
             <Col className="border-right border-left pl-0 pr-0" xs={12} lg={5}>
-              <PatientConversation.Header />
-              <PatientCase.Description text={'Kamote'} />
+              <PatientConversation.Header patientCase={this.props.patientCase} />
               <PatientConversation.Conversations className="fullHeight scrollable pb-30p" />
               <PatientConversation.CommentField className="commentField" />
             </Col>
@@ -48,7 +57,13 @@ Dashboard.propTypes = {
 }
 
 const mapStateToProps = state => ({
+  patientCase: state.patientCase.patientCase,
   patientCases: state.patientCase.patientCases,
+  filters: state.patientCase.patientCaseFilters
 });
 
-export default connect(mapStateToProps, { fetchPatientCases })(Dashboard);
+export default connect(mapStateToProps, {
+  fetchPatientCase,
+  fetchPatientCases,
+  setPatientCaseFilters
+})(Dashboard);

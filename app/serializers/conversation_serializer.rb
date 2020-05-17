@@ -1,7 +1,8 @@
 class ConversationSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :content
+  attributes :content, :user_id
+  attribute  :user_profile, &:profile
 
   attribute :attachments, if: Proc.new { |record, params|
     params && params[:include_assoc]

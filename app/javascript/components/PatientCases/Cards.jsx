@@ -5,27 +5,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Cards extends React.Component {
   render () {
+    const renderCases = this.props.patientCases.map(patientCase => {
+      return <Card 
+                key={`patientCaseCard${patientCase.id}`} 
+                patientCase={patientCase} 
+                fetchPatientCase={this.props.fetchPatientCase}
+              />
+    });
+
     return (
       <div className={this.props.className}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {renderCases}
       </div>
     );
   }
 }
 
 Cards.propTypes = {
-  className: PropTypes.string || PropTypes.undefined
+  fetchPatientCase: PropTypes.func.isRequired,
+  patientCases: PropTypes.array.isRequired,
+  className: PropTypes.string
 }
 
 export default Cards;

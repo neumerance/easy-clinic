@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_091428) do
+ActiveRecord::Schema.define(version: 2020_05_17_133340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 2020_05_08_091428) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.boolean "is_read", default: false
     t.index ["message_for_id"], name: "index_conversations_on_message_for_id"
     t.index ["message_for_type"], name: "index_conversations_on_message_for_type"
+    t.index ["user_id"], name: "index_conversations_on_user_id"
   end
 
   create_table "file_uploads", force: :cascade do |t|
