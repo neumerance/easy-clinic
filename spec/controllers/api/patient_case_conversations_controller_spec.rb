@@ -26,7 +26,10 @@ describe Api::PatientCaseConversationsController do
       get :index, params: params
     end
 
-    it { is_expected.to eq serialized_conversations[0..14] }
+    it 'respond with conversations' do
+      expect(response).to have_http_status(:success)
+      expect(subject.size).to eq 15
+    end
   end
 
   describe '#create' do
@@ -59,12 +62,4 @@ describe Api::PatientCaseConversationsController do
       )
     end
   end
-end
-
-def serialized_conversations
-  ConversationSerializer.new(conversations, {
-    params: {
-      include_assoc: true
-    }
-  }).serializable_hash.dig(:data).as_json
 end

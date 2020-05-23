@@ -2,35 +2,27 @@ class Api::PatientCaseConversationsController < ApplicationController
   before_action :get_patient_case
   before_action :get_conversations
   after_action  :broadcast_conversation, on: :create
-  
+
   def index
-    render json: serialized_resources
+    render_collection
   end
 
   def create
-    @conversations = @patient_case.conversations.create(allowed_params)
+    @resource = @patient_case.conversations.create(allowed_params)
     attach_file_uploads
-    render json: serialized_resources
+    render_json
   end
 
   private
 
   def get_conversations
-    @conversations = @patient_case.conversations.page(params[:page] || 1)
+    @resources = @patient_case.conversations.page(params[:page] || 1).per(15)
   end
 
   def get_patient_case
     @patient_case = user_role.patient_cases.includes(
       conversations: [{user: :profile}, :file_uploads]
     ).find_by_id(params[:patient_case_id])
-  end
-
-  def serialized_resources
-    ConversationSerializer.new(@conversations, {
-      params: {
-        include_assoc: true
-      }
-    })
   end
 
   def allowed_params
@@ -40,14 +32,30 @@ class Api::PatientCaseConversationsController < ApplicationController
 
   def attach_file_uploads
     params[:conversation][:file_uploads].each do |file|
-      FileUpload.create!(attachment_for: @conversations, file: file)
+      FileUpload.create!(attachment_for: @resource, file: file)
     end
   end
 
   def broadcast_conversation
     ActionCable.server.broadcast(
       "#{PatientCaseConversationsChannel::STREAM_AFFIX}_#{@patient_case.id}",
-      @conversations 
+      @resources
     )
+  end
+
+  def serialized_resources
+    serialize(@resources)
+  end
+
+  def serialized_resource
+    serialize(@resource)
+  end
+
+  def serialize(resources)
+    ConversationSerializer.new(resources, {
+      params: {
+        include_assoc: true
+      }
+    }).serializable_hash
   end
 end

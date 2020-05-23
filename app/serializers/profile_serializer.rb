@@ -3,7 +3,6 @@ class ProfileSerializer
   attributes :name, :overview, :age, :gender, :occupation, :address
 
   attribute :photo do |object|
-    ActiveStorage::Current.host = 'http://lvh.me:3000'
-    object.photo.variant(combine_options: { gravity: 'Center', crop: '150x230+0+0', quality: 75 }).processed.service_url
+    object.photo.variant(resize_to_fill: [150, 230, { gravity: 'Center' }]).processed.service_url
   end
 end
