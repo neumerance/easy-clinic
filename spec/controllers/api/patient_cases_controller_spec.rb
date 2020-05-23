@@ -77,13 +77,16 @@ describe Api::PatientCasesController do
         }
       end
 
-      before do
-        post :create, params: params
-      end
-
       it 'succeed' do
+        post :create, params: params
         expect(response).to have_http_status(:success)
         expect(subject.dig('data', 'attributes', 'id')).to eq expectation
+      end
+
+      it 'broadcast patient case' do
+        expect { post :create, params: params }.to have_broadcasted_to(
+          "patient_cases_#{patient.id}"
+        )
       end
     end
 

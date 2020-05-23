@@ -3,6 +3,8 @@ class PatientCaseSerializer
 
   attributes :case_id, :title, :description, :status, :created_at
 
+  attribute  :updated_at
+
   attribute :patient, if: Proc.new { |record, params|
     params && params[:current_user].doctor? && params[:include_assoc]
   } do |object|

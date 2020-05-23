@@ -1,6 +1,7 @@
 class Api::PatientCasesController < ApplicationController
   before_action :get_patient_case, only: [:update, :edit]
   before_action :get_patient_cases, only: :index
+  after_action  :broadcast_resource, only: [:create, :update]
 
   def index
     render_collection
@@ -30,6 +31,13 @@ class Api::PatientCasesController < ApplicationController
   end
 
   private
+
+  def broadcast_resource
+    PatientCasesChannel.broadcast_resource(
+      serialized_resource,
+      [@resource.doctor_id, @resource.patient_id].compact
+    )
+  end
 
   def serialized_resources
     serialize(@resources)

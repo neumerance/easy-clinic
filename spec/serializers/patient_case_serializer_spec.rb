@@ -6,6 +6,7 @@ describe PatientCaseSerializer do
 
   let(:expectation) do
     {
+      updated_at: patient_case.updated_at,
       case_id: patient_case.case_id,
       title: patient_case.title,
       description: patient_case.description,

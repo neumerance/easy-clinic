@@ -7,11 +7,11 @@ module ApplicationCable
     end
 
     private
-    
+
     def find_verified_user
       if current_user = User.find_by(id: cookies.signed[:user_id])
-        current_user = current_user.doctor? ? 
-                       current_user.doctor : 
+        current_user = current_user.doctor? ?
+                       current_user.doctor :
                        current_user.patient
       else
         reject_unauthorized_connection
