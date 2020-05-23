@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_active_storage_host
+  before_action :set_default_params
   before_action :user_role
 
   private
@@ -30,5 +31,9 @@ class ApplicationController < ActionController::Base
   def set_active_storage_host
     ActiveStorage::Current.host = request.base_url
   end
-end
 
+  def set_default_params
+      params[:page] ||= 1
+      params[:per] ||= 30
+  end
+end
