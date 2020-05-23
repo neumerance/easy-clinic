@@ -1,4 +1,8 @@
-import { FETCH_PATIENT_CASES, FETCH_PATIENT_CASE, SET_PATIENT_CASE_FILTERS } from '../actions/types';
+import {
+  FETCH_PATIENT_CASES,
+  FETCH_PATIENT_CASE,
+  SET_PATIENT_CASE_FILTERS
+} from '../actions/types';
 
 export const fetchPatientCases = params => dispatch => {
   let query = null;
@@ -7,9 +11,9 @@ export const fetchPatientCases = params => dispatch => {
   }
   fetch(`/api/patient_cases${query ? ('?'+query) : ''}`).
   then(res => res.json()).
-  then(data =>
-    dispatch({ type: FETCH_PATIENT_CASES, payload: data.data })
-  );
+  then(payload => {
+    dispatch({ type: FETCH_PATIENT_CASES, payload });
+  });
 }
 
 export const setPatientCaseFilters = filters => dispatch => {

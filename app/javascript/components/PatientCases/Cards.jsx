@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class Cards extends React.Component {
   render () {
     const renderCases = this.props.patientCases.map(patientCase => {
-      return <Card 
+      return <Card
                 key={`patientCaseCard${patientCase.id}`} 
                 patientCase={patientCase} 
                 fetchPatientCase={this.props.fetchPatientCase}
@@ -16,6 +16,7 @@ class Cards extends React.Component {
     return (
       <div className={this.props.className}>
         {renderCases}
+        {this.props.children}
       </div>
     );
   }
