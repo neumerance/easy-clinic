@@ -12,13 +12,15 @@ describe ConversationSerializer do
   subject do
     described_class.new(conversation, {
       params: {
-        include_assoc: true
+        include_assoc: true,
+        current_user: patient.user
       }
     }).serializable_hash.dig(:data, :attributes)
   end
 
   context 'serializables' do
     it 'has attributes' do
+      expect(subject.dig(:you)).to be_truthy
       expect(subject.dig(:content)).to eq conversation.content
       expect(subject.dig(:is_read)).to eq conversation.is_read
       expect(subject.dig(:owner, :name)).to eq patient.profile.name

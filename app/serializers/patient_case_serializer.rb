@@ -24,7 +24,8 @@ class PatientCaseSerializer
       object.conversations,
       {
         params: {
-          include_assoc: true
+          include_assoc: true,
+          current_user: params[:current_user]
         }
       }
     ).serializable_hash.dig(:data)
