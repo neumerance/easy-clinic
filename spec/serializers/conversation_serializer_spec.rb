@@ -22,7 +22,7 @@ describe ConversationSerializer do
     it 'has attributes' do
       expect(subject.dig(:you)).to be_truthy
       expect(subject.dig(:content)).to eq conversation.content
-      expect(subject.dig(:is_read)).to eq conversation.is_read
+      expect(subject.dig(:status)).to eq conversation.status
       expect(subject.dig(:owner, :name)).to eq patient.profile.name
       expect(subject.dig(:owner, :photo)).not_to be_empty
     end

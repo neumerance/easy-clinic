@@ -20,9 +20,7 @@ class Api::PatientCaseConversationsController < ApplicationController
   end
 
   def get_patient_case
-    @patient_case = user_role.patient_cases.includes(
-      conversations: [{user: :profile}, :file_uploads]
-    ).find_by_id(params[:patient_case_id])
+    @patient_case = user_role.patient_cases.includes(:patient, :doctor).find_by_id(params[:patient_case_id])
   end
 
   def allowed_params
@@ -37,9 +35,9 @@ class Api::PatientCaseConversationsController < ApplicationController
   end
 
   def broadcast_conversation
-    ActionCable.server.broadcast(
-      "#{PatientCaseConversationsChannel::STREAM_AFFIX}_#{@patient_case.id}",
-      @resources
+    PatientCasesConversationsChannel.broadcast_resource(
+      serialized_resource,
+      @resource.id
     )
   end
 

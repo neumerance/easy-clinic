@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :conversation do
     association :user
-    is_read { false }
     content { FFaker::Lorem.paragraph }
 
     trait :with_attachments do

@@ -25,38 +25,4 @@ describe PatientCaseSerializer do
   end
 
   it { is_expected.to eq  expectation }
-
-  describe 'Conversation and Attachments' do
-    let(:conversations)  { create(:conversation, message: pc) }
-    let(:include_assoc) { true }
-
-    context 'With conversations' do
-      let(:expectation) do
-        ConversationSerializer.new(
-          patient_case.conversations,
-          {
-            params: {
-              include_assoc: include_assoc
-            }
-          }
-        ).serializable_hash[:data]
-      end
-
-      it 'serializes with conversations' do
-        expect(subject[:conversations]).to eq expectation
-      end
-    end
-
-    context 'With Attachments' do
-      let(:expectation) do
-        FileUploadSerializer.new(
-          patient_case.file_uploads
-        ).serializable_hash[:data]
-      end
-
-      it 'serializes with attachments' do
-        expect(subject[:attachments]).to eq expectation
-      end
-    end
-  end
 end

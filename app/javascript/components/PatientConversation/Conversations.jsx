@@ -5,57 +5,17 @@ import Shared from '../Shared';
 
 class Conversations extends React.Component {
   render() {
+    const conversations = this.props.conversations.map(conversation => {
+      return <Conversation
+              text={conversation.attributes.content}
+              owner={conversation.attributes.owner}
+              status={conversation.attributes.status}>
+            </Conversation>
+    });
     return (
       <div className="d-flex align-items-end ml-4 mr-4">
         <div className={`${this.props.className} flex-grow-1`}>
-          <Conversation text="fsdafadsfsadfsdafasf" direction="left" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="left" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="left" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="left" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="right" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="right" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="right" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="right" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="left" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="left" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="left" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="left" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="right" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="right" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="right" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="right" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="left" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="left" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="left" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="left" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="right" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="right" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="right" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="right" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="left" alignment="top" status="sent" />
-          <Conversation text="fdsafasdfsdfsa" direction="left" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="left" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="left" alignment="bottom" status="sending" />
-          <Conversation text="fsdafadsfsadfsdafasf" direction="right" alignment="top" status="sent" />
-          <Shared.TextDivider showLines>
-            <span>Kamote</span>
-          </Shared.TextDivider>
-          <Conversation text="fdsafasdfsdfsa" direction="right" alignment="middle" status="sent" />
-          <Conversation text="fdsfsadf sadfasdfasd fsad fsda fsda" direction="right" alignment="middle" status="sent" />
-          <Conversation text="324rfdsafsdfas fasdfsad fsadf sdaf" direction="right" alignment="bottom" status="sending">
-            <Shared.Attachment size="lg" contentType="image" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="video" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="audio" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="pdf" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="doc" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="other" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="image" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="video" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="audio" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="pdf" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="doc" src="https://placeimg.com/80/80/any" />
-            <Shared.Attachment size="lg" contentType="other" src="https://placeimg.com/80/80/any" />
-          </Conversation>
+          {conversations}
         </div>
       </div>
     )
@@ -63,7 +23,8 @@ class Conversations extends React.Component {
 }
 
 Conversations.propTypes = {
-  className: PropTypes.string || PropTypes.undefined
+  className: PropTypes.string,
+  conversations: PropTypes.array.isRequired
 }
 
 export default Conversations;

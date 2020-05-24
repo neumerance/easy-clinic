@@ -1,4 +1,6 @@
 class Conversation < ApplicationRecord
+  enum status: [:sent, :read]
+
   belongs_to  :user
   has_one     :profile, through: :user
   belongs_to  :message_for, polymorphic: true

@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_05_17_133340) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
-    t.boolean "is_read", default: false
+    t.integer "status", default: 0
     t.index ["message_for_id"], name: "index_conversations_on_message_for_id"
     t.index ["message_for_type"], name: "index_conversations_on_message_for_type"
     t.index ["user_id"], name: "index_conversations_on_user_id"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2020_05_17_133340) do
     t.string "occupation"
     t.string "address"
     t.bigint "user_id"
+    t.boolean "online", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"

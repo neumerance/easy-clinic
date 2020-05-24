@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import patientCaseReducer from './patientCaseReducer';
+import patientCaseConversationsReducer from './patientCaseConversationsReducer';
 
 export default combineReducers({
-  patientCase: patientCaseReducer
+  patientCase: patientCaseReducer,
+  patientCaseConversations: patientCaseConversationsReducer
 });

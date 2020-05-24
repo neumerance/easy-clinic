@@ -8,6 +8,7 @@ class CreateProfiles < ActiveRecord::Migration[6.0]
       t.string      :occupation
       t.string      :address
       t.references  :user, index: true
+      t.boolean     :online, default: false
       t.timestamps
     end
   end

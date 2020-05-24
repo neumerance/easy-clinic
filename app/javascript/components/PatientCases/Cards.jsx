@@ -26,7 +26,7 @@ class Cards extends React.Component {
 
 Cards.propTypes = {
   fetchPatientCase: PropTypes.func.isRequired,
-  patientCase: PropTypes.object.isRequired,
+  patientCase: PropTypes.object,
   patientCases: PropTypes.array.isRequired,
   className: PropTypes.string
 }

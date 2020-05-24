@@ -11,7 +11,12 @@ FactoryBot.define do
 
     trait :with_conversation do
       after :create do |object, evaluator|
-        create_list(:conversation, evaluator.conversation_count, message_for: object, user: object.patient)
+        create_list(
+          :conversation, evaluator.conversation_count,
+          message_for: object,
+          user: object.patient,
+          user: object.patient.user
+        )
       end
     end
   end

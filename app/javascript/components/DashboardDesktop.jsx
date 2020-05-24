@@ -12,6 +12,10 @@ import {
   appendPatientCase,
   loadMorePatientCases
 } from '../store/actions/patientCaseActions';
+import {
+  fetchMessages,
+  sendMessage
+} from '../store/actions/patientCaseConversationAction';
 import PatientCasesChannel from '../channels/PatientCasesChannel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardDesktop.css'
@@ -44,7 +48,7 @@ class Dashboard extends React.Component {
     if (this.props.patientCase) {
       conversationSection = <React.Fragment>
                               <PatientConversation.Header patientCase={this.props.patientCase} />
-                              <PatientConversation.Conversations className="fullHeight scrollable pb-30p" />
+                              <PatientConversation.Conversations conversations={this.props.patientCaseConversations} className="fullHeight scrollable pb-30p" />
                               <PatientConversation.CommentField className="commentField" />
                             </React.Fragment>
     }
@@ -63,7 +67,7 @@ class Dashboard extends React.Component {
               >
                 <PatientCase.LoadMoreBtn
                   filters={this.props.filters}
-                  meta={this.props.meta}
+                  pagination={this.props.patientCasePagination}
                   loadMorePatientCases={this.props.loadMorePatientCases}
                   className="btn-block mt-2"
                 />
@@ -90,7 +94,8 @@ const mapStateToProps = state => ({
   patientCase: state.patientCase.patientCase,
   patientCases: state.patientCase.patientCases,
   filters: state.patientCase.patientCaseFilters,
-  meta: state.patientCase.meta
+  patientCasePagination: state.patientCase.pagination,
+  patientCaseConversations: state.patientCaseConversations.conversations,
 });
 
 export default connect(mapStateToProps, {
@@ -98,5 +103,7 @@ export default connect(mapStateToProps, {
   fetchPatientCases,
   setPatientCaseFilters,
   appendPatientCase,
-  loadMorePatientCases
+  loadMorePatientCases,
+  fetchMessages,
+  sendMessage
 })(Dashboard);

@@ -12,7 +12,7 @@ const initialState = {
   },
   patientCases: [],
   patientCase: null,
-  meta: {}
+  pagination: {}
 }
 
 export default (state = initialState, action) => {
@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         patientCases: action.payload.data,
-        meta: action.payload.meta
+        pagination: action.payload.meta.pagination
       };
     case APPEND_PATIENT_CASES:
       return {
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
           ...state.patientCases,
           ...action.payload.data
         ],
-        meta: action.payload.meta
+        pagination: action.payload.meta.pagination
       }
     case APPEND_PATIENT_CASE:
       if (action.payload.attributes.status !== state.patientCaseFilters.status) {

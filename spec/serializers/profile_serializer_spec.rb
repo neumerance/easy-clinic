@@ -9,7 +9,8 @@ describe ProfileSerializer do
       age: profile.age,
       gender: profile.gender,
       occupation: profile.occupation,
-      address: profile.address
+      address: profile.address,
+      online: profile.online
     }
   end
 
@@ -18,7 +19,7 @@ describe ProfileSerializer do
   end
 
   it 'serialize' do
-    %w(name overview age gender occupation address).each do |field|
+    %w(name overview age gender occupation address online).each do |field|
       expect(subject[field]).to eq expectation[field]
     end
   end
