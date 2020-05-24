@@ -19,7 +19,7 @@ const styles = {
 class Card extends React.Component {
   render () {
     return (
-      <BCard className="mt-2" onClick={() => { this.props.fetchPatientCase(this.props.patientCase.id) }} style={styles.card}>
+      <BCard className={`mt-2 ${this.props.active ? 'border-primary' : ''}`} onClick={() => { this.props.fetchPatientCase(this.props.patientCase.id) }} style={styles.card}>
         <BCard.Body>
           <BCard.Title className="m-0">
             <div className="d-flex justify-content-between">
@@ -36,7 +36,8 @@ class Card extends React.Component {
 
 Card.propTypes = {
   patientCase: PropTypes.object.isRequired,
-  fetchPatientCase: PropTypes.func.isRequired
+  fetchPatientCase: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired
 }
 
 export default Card;

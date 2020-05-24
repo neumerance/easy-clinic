@@ -1,11 +1,18 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { fetchPatientCase, fetchPatientCases, setPatientCaseFilters } from '../store/actions/patientCaseActions';
 import PatientCase from './PatientCases';
 import PatientConversation from './PatientConversation';
 import FrabricBG from './assets/fabric.png';
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import {
+  fetchPatientCase,
+  fetchPatientCases,
+  setPatientCaseFilters,
+  appendPatientCase,
+  loadMorePatientCases
+} from '../store/actions/patientCaseActions';
+import PatientCasesChannel from '../channels/PatientCasesChannel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardDesktop.css'
 
@@ -19,6 +26,10 @@ class Dashboard extends React.Component {
       ...this.props.filters,
       page: this.props.meta ? this.props.meta.next_page : 1
     });
+  }
+
+  componentDidMount() {
+    PatientCasesChannel(this.props.appendPatientCase);
   }
 
   componentWillReceiveProps(props) {
@@ -46,13 +57,14 @@ class Dashboard extends React.Component {
               <PatientCase.Filters filters={this.props.filters} onFilterChange={this.props.setPatientCaseFilters} className="mt-3 mb-3" />
               <PatientCase.Cards
                 className="fullHeight scrollable pb-30p"
+                patientCase={this.props.patientCase}
                 patientCases={this.props.patientCases}
                 fetchPatientCase={this.props.fetchPatientCase}
               >
                 <PatientCase.LoadMoreBtn
                   filters={this.props.filters}
                   meta={this.props.meta}
-                  fetchPatientCases={this.props.fetchPatientCases}
+                  loadMorePatientCases={this.props.loadMorePatientCases}
                   className="btn-block mt-2"
                 />
               </PatientCase.Cards>
@@ -84,5 +96,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   fetchPatientCase,
   fetchPatientCases,
-  setPatientCaseFilters
+  setPatientCaseFilters,
+  appendPatientCase,
+  loadMorePatientCases
 })(Dashboard);

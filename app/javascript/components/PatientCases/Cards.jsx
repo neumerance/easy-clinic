@@ -5,10 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Cards extends React.Component {
   render () {
-    const renderCases = this.props.patientCases.map(patientCase => {
+    const renderCases = this.props.patientCases.map((patientCase, idx) => {
+      const isActive = patientCase.id === (this.props.patientCase && this.props.patientCase.id);
       return <Card
-                key={`patientCaseCard${patientCase.id}`} 
-                patientCase={patientCase} 
+                active={isActive}
+                key={`patientCaseCard${patientCase.id}${idx}`}
+                patientCase={patientCase}
                 fetchPatientCase={this.props.fetchPatientCase}
               />
     });
@@ -24,6 +26,7 @@ class Cards extends React.Component {
 
 Cards.propTypes = {
   fetchPatientCase: PropTypes.func.isRequired,
+  patientCase: PropTypes.object.isRequired,
   patientCases: PropTypes.array.isRequired,
   className: PropTypes.string
 }

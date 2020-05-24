@@ -1,7 +1,9 @@
 import {
   FETCH_PATIENT_CASES,
   FETCH_PATIENT_CASE,
-  SET_PATIENT_CASE_FILTERS
+  SET_PATIENT_CASE_FILTERS,
+  APPEND_PATIENT_CASES,
+  APPEND_PATIENT_CASE
 } from '../actions/types'
 
 const initialState = {
@@ -16,16 +18,30 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PATIENT_CASES:
-      const prevPage = state.meta.pagination ? state.meta.pagination.prev_page : null;
-      const currentPage = action.payload.meta.pagination ? action.payload.meta.pagination.current_page : null;
-      const append = (prevPage === currentPage);
-
       return {
         ...state,
-        patientCases: append ?
-                      [...state.patientCases, ...action.payload.data] :
-                      action.payload.data,
+        patientCases: action.payload.data,
         meta: action.payload.meta
+      };
+    case APPEND_PATIENT_CASES:
+      return {
+        ...state,
+        patientCases: [
+          ...state.patientCases,
+          ...action.payload.data
+        ],
+        meta: action.payload.meta
+      }
+    case APPEND_PATIENT_CASE:
+      if (action.payload.attributes.status !== state.patientCaseFilters.status) {
+        return state;
+      }
+      return {
+        ...state,
+        patientCases: [
+          ...state.patientCases,
+          action.payload
+        ]
       };
     case FETCH_PATIENT_CASE:
       return {

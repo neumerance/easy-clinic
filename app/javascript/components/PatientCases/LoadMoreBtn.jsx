@@ -9,7 +9,7 @@ class LoadMoreBtn extends React.Component {
   }
 
   onClick() {
-    this.props.fetchPatientCases({
+    this.props.loadMorePatientCases({
       ...this.props.filters,
       page: this.props.meta.pagination.next_page
     });
@@ -26,7 +26,7 @@ class LoadMoreBtn extends React.Component {
 
 LoadMoreBtn.propTypes = {
   className: PropTypes.string,
-  fetchPatientCases: PropTypes.func.isRequired,
+  loadMorePatientCases: PropTypes.func.isRequired,
   filters: PropTypes.object.isRequired,
   meta: PropTypes.object.isRequired
 }
