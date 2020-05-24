@@ -1,15 +1,14 @@
 class PatientCaseConversationsChannel < ApplicationCable::Channel
-  STREAM_AFFIX = 'patient_case_conversations'.freeze
+  STREAM_AFFIX = 'patient_cases_conversations'.freeze
 
   def subscribed
-    reject unless patient_case
-
-    stream_from "#{STREAM_AFFIX}_#{@patient_case.id}" if @patient_case
+    stream_from "#{STREAM_AFFIX}_#{params[:patient_case_id]}"
   end
 
-  private
-
-  def patient_case
-    @patient_case = current_user.patient_cases.find_by_id(params[:patient_case_id])
+  def self.broadcast_resource(serialized_resources, patient_case_id)
+    ActionCable.server.broadcast(
+      "#{STREAM_AFFIX}_#{patient_case_id}",
+      serialized_resources
+    )
   end
 end

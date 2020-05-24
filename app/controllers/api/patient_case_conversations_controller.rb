@@ -35,9 +35,9 @@ class Api::PatientCaseConversationsController < ApplicationController
   end
 
   def broadcast_conversation
-    PatientCasesConversationsChannel.broadcast_resource(
+    PatientCaseConversationsChannel.broadcast_resource(
       serialized_resource,
-      @resource.id
+      @patient_case.id
     )
   end
 

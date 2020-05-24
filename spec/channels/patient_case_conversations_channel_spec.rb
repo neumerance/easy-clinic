@@ -8,14 +8,9 @@ describe PatientCaseConversationsChannel, type: :channel do
     stub_connection current_user: current_user
   end
 
-  it "rejects when patient_case_id is invalid" do
-    subscribe(patient_case_id: -1)
-    expect(subscription).to be_rejected
-  end
-
   it "subscribes to a stream when patient_case_id is provided" do
     subscribe(patient_case_id: patient_case.id)
     expect(subscription).to be_confirmed
-    expect(subscription).to have_stream_from("patient_case_conversations_#{patient_case.id}")
+    expect(subscription).to have_stream_from("#{described_class::STREAM_AFFIX}_#{patient_case.id}")
   end
 end
