@@ -10,12 +10,12 @@ import {
   fetchPatientCases,
   setPatientCaseFilters,
   appendPatientCase,
-  loadMorePatientCases,
-  appendMessage
+  loadMorePatientCases
 } from '../store/actions/patientCaseActions';
 import {
   fetchMessages,
-  sendMessage
+  sendMessage,
+  appendMessage
 } from '../store/actions/patientCaseConversationAction';
 import PatientCasesChannel from '../channels/PatientCasesChannel';
 import PatientCaseConversationsChannel from '../channels/PatientCaseConversationsChannel';
@@ -29,20 +29,23 @@ const fabricBGStyles = {
 class Dashboard extends React.Component {
   componentWillMount() {
     this.props.fetchPatientCases({
-      ...this.props.filters,
-      page: this.props.meta ? this.props.meta.next_page : 1
+      ...this.props.filters
     });
   }
 
   componentDidMount() {
     PatientCasesChannel(this.props.appendPatientCase);
-    PatientCaseConversationsChannel(this.props.appendMessage);
   }
 
   componentWillReceiveProps(props) {
     if (props.patientCases.length && !props.patientCase) {
       this.props.fetchPatientCase(props.patientCases[0].id);
-      this.props.fetchMessages(props.patientCases[0].id);
+    }
+
+    if (JSON.stringify(props.patientCase || '')
+        !== JSON.stringify(this.props.patientCase || '')) {
+      this.props.fetchMessages(props.patientCase.id);
+      PatientCaseConversationsChannel(props.patientCase.id, this.props.appendMessage);
     }
   }
 

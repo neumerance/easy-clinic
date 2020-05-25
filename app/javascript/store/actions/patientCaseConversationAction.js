@@ -24,7 +24,7 @@ export const sendMessage = (patient_case_id, payload) => dispatch => {
   })
   .then(response => response.json())
   .then(data => {
-    dispatch({ type: APPEND_PATIENT_CASE_CONVERSATION, payload: data.data });
+    // dispatch({ type: APPEND_PATIENT_CASE_CONVERSATION, payload: data.data });
   })
   .catch((error) => {
     console.error('Error:', error);

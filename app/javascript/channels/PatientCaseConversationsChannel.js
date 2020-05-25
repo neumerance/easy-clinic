@@ -1,11 +1,14 @@
 import consumer from './consumer';
 
-const PatientCaseConversationsChannel = (onReceived = () => {}) => {
+const PatientCaseConversationsChannel = (patientCaseId, onReceived) => {
   consumer.subscriptions.create({
-    channel: 'PatientCaseConversationsChannel'
+    channel: 'PatientCaseConversationsChannel',
+    patient_case_id: patientCaseId
   }, {
     received(data) {
-      onReceived(data);
+      if (data.data) {
+        onReceived(data);
+      }
     }
   });
 }
