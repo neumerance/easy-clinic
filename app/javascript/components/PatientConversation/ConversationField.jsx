@@ -19,12 +19,13 @@ class ConversationField extends React.Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
     this.state = {
       message: ''
     }
   }
 
-  onSend() {
+  send() {
     this.props.sendMessage(
       this.props.patientCase.id,
       {
@@ -40,6 +41,12 @@ class ConversationField extends React.Component {
     this.setState({ message: event.target.value });
   }
 
+  onKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.send();
+    }
+  }
+
   render() {
     return (
       <div className={`${this.props.className} d-flex align-items-center pr-4 pt-2 pb-2 pl-4 bg-light border-bottom shadow-sm`}>
@@ -51,8 +58,9 @@ class ConversationField extends React.Component {
           style={styles.field}
           placeholder="Comment here..."
           onChange={this.onChange}
+          onKeyPress={this.onKeyPress}
         />
-        <a onClick={() => {this.onSend()}} style={styles.sendBtn}>
+        <a onClick={() => {this.send()}} style={styles.sendBtn}>
           <FontAwesomeIcon
             size="lg"
             icon={faPaperPlane}

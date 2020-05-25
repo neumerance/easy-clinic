@@ -16,6 +16,7 @@ class Header extends React.Component {
 
     const patientCaseAttr = this.props.patientCase.attributes
     const patient = patientCaseAttr.patient.profile
+    const doctor = patientCaseAttr.doctor.profile
 
     return (
       <div className={this.props.className} className="d-flex justify-content-between align-items-center pr-4 pt-2 pb-2 pl-4 bg-light border-bottom shadow-sm">
