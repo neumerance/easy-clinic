@@ -16,6 +16,14 @@ export default (state = initialState, action) => {
         conversations: action.payload.data,
         pagination: action.payload.meta.pagination
       };
+    case APPEND_PATIENT_CASE_CONVERSATION:
+      return {
+        ...state,
+        conversations: [
+          action.payload,
+          ...state.conversations,
+        ]
+      }
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 class Api::PatientCaseConversationsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :get_patient_case
   before_action :get_conversations
   after_action  :broadcast_conversation, on: :create
@@ -29,7 +30,8 @@ class Api::PatientCaseConversationsController < ApplicationController
   end
 
   def attach_file_uploads
-    params[:conversation][:file_uploads].each do |file|
+    uploads = params.dig(:conversation, :file_uploads) || []
+    uploads.each do |file|
       FileUpload.create!(attachment_for: @resource, file: file)
     end
   end

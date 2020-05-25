@@ -1,11 +1,11 @@
 import Header from './Header';
 import Conversations from './Conversations';
-import CommentField from './CommentField';
+import ConversationField from './ConversationField';
 import NoPatientSelected from './NoPatientSelected';
 
 export default {
   Header,
   Conversations,
-  CommentField,
+  ConversationField,
   NoPatientSelected
 }

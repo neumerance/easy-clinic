@@ -23,6 +23,7 @@ describe ConversationSerializer do
       expect(subject.dig(:you)).to be_truthy
       expect(subject.dig(:content)).to eq conversation.content
       expect(subject.dig(:status)).to eq conversation.status
+      expect(subject.dig(:created_at)).to eq conversation.created_at
       expect(subject.dig(:owner, :name)).to eq patient.profile.name
       expect(subject.dig(:owner, :photo)).not_to be_empty
     end

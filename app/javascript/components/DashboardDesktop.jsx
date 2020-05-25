@@ -10,13 +10,15 @@ import {
   fetchPatientCases,
   setPatientCaseFilters,
   appendPatientCase,
-  loadMorePatientCases
+  loadMorePatientCases,
+  appendMessage
 } from '../store/actions/patientCaseActions';
 import {
   fetchMessages,
   sendMessage
 } from '../store/actions/patientCaseConversationAction';
 import PatientCasesChannel from '../channels/PatientCasesChannel';
+import PatientCaseConversationsChannel from '../channels/PatientCaseConversationsChannel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './DashboardDesktop.css'
 
@@ -34,11 +36,13 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     PatientCasesChannel(this.props.appendPatientCase);
+    PatientCaseConversationsChannel(this.props.appendMessage);
   }
 
   componentWillReceiveProps(props) {
     if (props.patientCases.length && !props.patientCase) {
       this.props.fetchPatientCase(props.patientCases[0].id);
+      this.props.fetchMessages(props.patientCases[0].id);
     }
   }
 
@@ -49,7 +53,11 @@ class Dashboard extends React.Component {
       conversationSection = <React.Fragment>
                               <PatientConversation.Header patientCase={this.props.patientCase} />
                               <PatientConversation.Conversations conversations={this.props.patientCaseConversations} className="fullHeight scrollable pb-30p" />
-                              <PatientConversation.CommentField className="commentField" />
+                              <PatientConversation.ConversationField
+                                className="commentField"
+                                sendMessage={this.props.sendMessage}
+                                patientCase={this.props.patientCase}
+                              />
                             </React.Fragment>
     }
 
@@ -105,5 +113,6 @@ export default connect(mapStateToProps, {
   appendPatientCase,
   loadMorePatientCases,
   fetchMessages,
-  sendMessage
+  sendMessage,
+  appendMessage
 })(Dashboard);

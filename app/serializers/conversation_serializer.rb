@@ -1,7 +1,7 @@
 class ConversationSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :content, :status
+  attributes :content, :status, :created_at
 
   attribute :owner do |record|
     ProfileSerializer.new(record.profile).serializable_hash.dig(:data, :attributes)

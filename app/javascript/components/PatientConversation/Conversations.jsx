@@ -5,18 +5,20 @@ import Shared from '../Shared';
 
 class Conversations extends React.Component {
   render() {
-    const conversations = this.props.conversations.map(conversation => {
+    const conversations = this.props.conversations.map((conversation, idx) => {
       return <Conversation
+              key={`conversation${conversation.id}${idx}`}
               text={conversation.attributes.content}
               owner={conversation.attributes.owner}
-              status={conversation.attributes.status}>
+              status={conversation.attributes.status}
+              timestamp={conversation.attributes.created_at}>
             </Conversation>
     });
     return (
-      <div className="d-flex align-items-end ml-4 mr-4">
-        <div className={`${this.props.className} flex-grow-1`}>
-          {conversations}
-        </div>
+      <div className={`d-flex flex-column-reverse justify-content-end`}>
+       <div className={`${this.props.className} d-flex flex-column-reverse`}>
+        {conversations}
+       </div>
       </div>
     )
   }
