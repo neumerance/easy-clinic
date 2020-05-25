@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const fromNow = (dateTime) => {
-  return moment(dateTime, "YYYY-MM-DDTh:mm:ss").fromNow();
+  return moment.utc(dateTime, "YYYY-MM-DDTh:mm:ss").fromNow();
 }
 
 export default {

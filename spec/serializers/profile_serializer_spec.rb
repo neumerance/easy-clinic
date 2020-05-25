@@ -9,8 +9,7 @@ describe ProfileSerializer do
       age: profile.age,
       gender: profile.gender,
       occupation: profile.occupation,
-      address: profile.address,
-      online: profile.online
+      address: profile.address
     }
   end
 
