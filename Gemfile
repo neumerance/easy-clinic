@@ -68,7 +68,7 @@ gem 'fast_jsonapi'
 
 gem 'mini_magick'
 
-gem "image_processing", "~> 1.0"
+gem "image_processing", "~> 1.12"
 
 gem 'kaminari'
 
